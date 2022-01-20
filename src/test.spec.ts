@@ -3,8 +3,8 @@ import { Dollar } from './dollar'
 describe('Dollar', () => {
   it('should return 10 when five dollars area multiplied by two', () => {
     const five: Dollar = new Dollar(5)
-    const product: Dollar = five.times(2)
-    expect(product.amount).toEqual(10)
+    expect(five.times(2).equals(new Dollar(10))).toBeTruthy()
+    expect(five.times(3).equals(new Dollar(15))).toBeTruthy()
   })
 
   it('should return true when dollars of the same value are compared', () => {
