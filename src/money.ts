@@ -1,4 +1,7 @@
-export class Money {
+import { Expression } from './expression'
+import { Sum } from './sum'
+
+export class Money implements Expression {
   private readonly _amount: number;
   private readonly _currency: string
 
@@ -23,11 +26,23 @@ export class Money {
     return this._amount === other._amount
   }
 
+  times (multiplier: number): Money {
+    return new Money(this._amount * multiplier, this._currency)
+  }
+
+  plus (addend: Money): Expression {
+    return new Sum(this, addend)
+  }
+
+  reduce (to: string): Money {
+    return this
+  }
+
   currency (): string {
     return this._currency
   }
 
-  times (multiplier: number): Money {
-    return new Money(this._amount * multiplier, this._currency)
+  amount (): number {
+    return this._amount
   }
 }
