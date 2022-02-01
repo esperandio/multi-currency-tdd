@@ -3,24 +3,28 @@ import { Expression } from './expression'
 import { Money } from './money'
 
 export class Sum implements Expression {
-  private readonly _augend: Money
-  private readonly _addend: Money
+  private readonly _augend: Expression
+  private readonly _addend: Expression
 
-  constructor (augend: Money, addend: Money) {
+  constructor (augend: Expression, addend: Expression) {
     this._augend = augend
     this._addend = addend
   }
 
-  augend (): Money {
+  augend (): Expression {
     return this._augend
   }
 
-  addend (): Money {
+  addend (): Expression {
     return this._addend
   }
 
   reduce (bank: Bank, to: string): Money {
-    const amount = this._augend.amount() + this._addend.amount()
+    const amount = this._augend.reduce(bank, to).amount() + this._addend.reduce(bank, to).amount()
     return new Money(amount, to)
+  }
+
+  plus (addend: Expression): Expression {
+    return null
   }
 }
